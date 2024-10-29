@@ -149,6 +149,21 @@ def alterar_email(dicionario: dict, chave_contato):
     else:
         print(f'Erro: O contato "{chave_contato}" não existe.')
 
+def exibir_tudo(dicionario: dict):
+    # Opção para imprimir a lista completa de contatos
+    while True:
+        try:
+            x = input('Deseja imprimir a lista de contatos inteira? (S/N): ').lower().strip()
+            if x == 's':
+                print(json.dumps(dicionario, indent=2))
+                break
+            elif x == 'n':
+                break
+            else:
+                print('Por favor, digite "S" para Sim ou "N" para Não.')
+        except ValueError:
+            print('Erro: Tente novamente.')
+
 
 def main(dicionario: dict):
     while True:
@@ -159,10 +174,11 @@ def main(dicionario: dict):
                   '[3] Consultar Contato \n'
                   '[4] Inserir Novo Telefone \n'
                   '[5] Remover Telefone \n'
-                  '[6] Alterar Email ')
+                  '[6] Alterar Email \n'
+                  '[7] Exibir tudo')
             menu = int(input('Digite uma opção:'))
-            if menu > 6 or menu < 0:
-                print('Digite um número de 0 a 6')
+            if menu > 7 or menu < 0:
+                print('Digite um número de 0 a 7')
                 continue
         except ValueError:
             print('Você digitou uma letra. Tente novamente.')
@@ -206,24 +222,15 @@ def main(dicionario: dict):
             contatos_disponiveis(dicionario)
             contato = input('Qual contato deseja alterar o email:').strip()
             alterar_email(dicionario, contato)
+        
+        elif menu == 7:
+            exibir_tudo(contatos)
 
 
 contatos = {}
 main(contatos)
 
-# Opção para imprimir a lista completa de contatos
-while True:
-    try:
-        x = input('Deseja imprimir a lista de contatos inteira? (S/N): ').lower().strip()
-        if x == 's':
-            print(json.dumps(contatos, indent=2))
-            break
-        elif x == 'n':
-            break
-        else:
-            print('Por favor, digite "S" para Sim ou "N" para Não.')
-    except ValueError:
-        print('Erro: Tente novamente.')
+
 
 
 
